@@ -16,7 +16,7 @@ class ArticleRepository implements ArticleRepositoryInterface
 
     public function all(): Collection
     {
-        return $this->model->with(['source','category','author'])->get();
+        return $this->model->with(['media','source','category','author'])->get();
     }
 
     public function find(int $id): ?Article
