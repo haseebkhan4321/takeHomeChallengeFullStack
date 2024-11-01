@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Author>
  */
-class ArticleFactory extends Factory
+class AuthorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +17,9 @@ class ArticleFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(6, true),
-            'description' => $this->faker->paragraphs(3, true),
-            'publish_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
+            'name' => $this->faker->name,
             'created_at' => now(),
             'updated_at' => now(),
         ];
     }
-
 }

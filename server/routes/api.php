@@ -20,10 +20,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/articles', [ArticleController::class, 'index']); // Get all articles
-Route::post('/articles', [ArticleController::class, 'store']); // Create a new article
 Route::get('/articles/{id}', [ArticleController::class, 'show']); // Get a specific article
-Route::put('/articles/{id}', [ArticleController::class, 'update']); // Update a specific article
-Route::delete('/articles/{id}', [ArticleController::class, 'destroy']); // Delete a specific article
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout']);

@@ -16,34 +16,12 @@ class ArticleRepository implements ArticleRepositoryInterface
 
     public function all(): Collection
     {
-        return $this->model->all();
+        return $this->model->with(['source','category','author'])->get();
     }
 
     public function find(int $id): ?Article
     {
-        return $this->model->find($id);
+        return $this->model->with(['source', 'category', 'author'])->find($id);
     }
 
-    public function create(array $data): Article
-    {
-        return $this->model->create($data);
-    }
-
-    public function update(int $id, array $data): bool
-    {
-        $article = $this->model->find($id);
-        if ($article) {
-            return $article->update($data);
-        }
-        return false;
-    }
-
-    public function delete(int $id): bool
-    {
-        $article = $this->model->find($id);
-        if ($article) {
-            return $article->delete();
-        }
-        return false;
-    }
 }

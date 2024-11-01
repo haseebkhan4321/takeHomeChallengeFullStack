@@ -11,9 +11,4 @@ interface ArticleRepositoryInterface
 
     public function find(int $id): ?Article;
 
-    public function create(array $data): Article;
-
-    public function update(int $id, array $data): bool;
-
-    public function delete(int $id): bool;
 }
