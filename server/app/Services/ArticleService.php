@@ -14,9 +14,9 @@ class ArticleService
         $this->articleRepository = $articleRepository;
     }
 
-    public function getAllArticles()
+    public function getAllArticles($request)
     {
-        return $this->articleRepository->all();
+        return $this->articleRepository->all($request);
     }
 
     public function getArticleById($id)

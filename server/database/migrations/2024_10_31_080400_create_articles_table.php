@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('source_id')->constrained('sources')->onDelete('cascade');
             $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
             $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('description');
             $table->dateTime('publish_at');
             $table->timestamps();

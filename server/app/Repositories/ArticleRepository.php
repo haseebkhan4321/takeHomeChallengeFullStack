@@ -14,9 +14,26 @@ class ArticleRepository implements ArticleRepositoryInterface
         $this->model = $model;
     }
 
-    public function all(): Collection
+    public function all($request): Collection
     {
-        return $this->model->with(['media','source','category','author'])->get();
+        return $this->model->with(['media','source','category','author'])
+            ->when(request('category'),function ($query) use ($request){
+                $query->whereHas('slug','=',$request->category);
+            })
+            ->when(request('author'),function ($query) use ($request){
+                $query->whereHas('slug','=',$request->author);
+            })
+            ->when(request('source'),function ($query) use ($request){
+                $query->whereHas('slug','=',$request->source);
+            })
+
+            ->when(request('limit'),function ($query) use ($request){
+                $query->limit($request->limit);
+            })
+//            ->when(request('offset'),function ($query) use ($request){
+//                $query->offset($request->offset);
+//            })
+            ->get();
     }
 
     public function find(int $id): ?Article

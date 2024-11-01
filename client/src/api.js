@@ -1,6 +1,11 @@
 const Api = {
-  async get(endpoint, headers = {}) {
-    return await request(`${process.env.REACT_APP_APP_URL}${endpoint}`, { method: "GET", headers });
+  async get(endpoint, body = {}, headers = {}) {
+    return await request(
+      `${process.env.REACT_APP_APP_URL}${endpoint}${
+        Object.keys(body).length > 0 ? "?" + new URLSearchParams(body).toString() : ""
+      }`,
+      { method: "GET", headers }
+    );
   },
 
   async post(endpoint, body = {}, headers = {}) {

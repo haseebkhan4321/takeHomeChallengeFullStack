@@ -7,7 +7,7 @@ use App\Models\Article;
 
 interface ArticleRepositoryInterface
 {
-    public function all(): Collection;
+    public function all($request): Collection;
 
     public function find(int $id): ?Article;
 
