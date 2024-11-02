@@ -43,7 +43,7 @@ async function request(url, options) {
       body: options.body ? JSON.stringify(options.body) : null,
     });
 
-    if (response.status === 401) {
+    if (response.status === 401 && url != process.env.REACT_APP_APP_URL + "/login") {
       redirectToLogin();
       return;
     }

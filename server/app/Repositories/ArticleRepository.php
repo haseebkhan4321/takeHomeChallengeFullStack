@@ -17,16 +17,24 @@ class ArticleRepository implements ArticleRepositoryInterface
     public function all($request): Collection
     {
         return $this->model->with(['media','source','category','author'])
-            ->when(request('category'),function ($query) use ($request){
-                $query->whereHas('slug','=',$request->category);
+            ->when(request('category'), function ($query) {
+            $query->whereHas('category', function ($q) {
+                $q->where('slug', '=', request('category'));
+            });
+        })
+            ->when(request('author'), function ($query) {
+                $query->whereHas('author', function ($q) {
+                    $q->where('slug', '=', request('author'));
+                });
             })
-            ->when(request('author'),function ($query) use ($request){
-                $query->whereHas('slug','=',$request->author);
+            ->when(request('source'), function ($query) {
+                $query->whereHas('source', function ($q) {
+                    $q->where('slug', '=', request('source'));
+                });
             })
-            ->when(request('source'),function ($query) use ($request){
-                $query->whereHas('slug','=',$request->source);
+            ->when(request('search'), function ($query) use ($request){
+                $query->where('slug', 'like', '%'.request('search').'%');
             })
-
             ->when(request('limit'),function ($query) use ($request){
                 $query->limit($request->limit);
             })

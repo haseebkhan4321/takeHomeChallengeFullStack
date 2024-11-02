@@ -20,9 +20,10 @@ class ArticleSeeder extends Seeder
         Article::factory()
             ->count(1000)
             ->has(Media::factory()->count(2))
-            ->for(Category::factory(), 'category')
-            ->for(Source::factory(), 'source')
-            ->for(Author::factory(), 'author')
-            ->create();
+            ->create([
+                'category_id' => Category::inRandomOrder()->first()->id,
+                'source_id' => Source::inRandomOrder()->first()->id,
+                'author_id' => Author::inRandomOrder()->first()->id,
+            ]);
     }
 }
