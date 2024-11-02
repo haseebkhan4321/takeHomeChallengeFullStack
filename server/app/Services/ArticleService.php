@@ -19,9 +19,9 @@ class ArticleService
         return $this->articleRepository->all($request);
     }
 
-    public function getArticleById($id)
+    public function getArticleBySlug($slug)
     {
-        return $this->articleRepository->findById($id);
+        return $this->articleRepository->findBySlug($slug);
     }
 
 

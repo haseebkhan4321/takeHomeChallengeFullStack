@@ -21,9 +21,9 @@ class ArticleController extends Controller
     }
 
 
-    public function show($id)
+    public function show($slug)
     {
-        $article = $this->articleService->getArticleById($id);
+        $article = $this->articleService->getArticleBySlug($slug);
         return response()->json($article);
     }
 

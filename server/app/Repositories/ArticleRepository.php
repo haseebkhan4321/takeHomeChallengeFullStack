@@ -44,9 +44,9 @@ class ArticleRepository implements ArticleRepositoryInterface
             ->get();
     }
 
-    public function find(int $id): ?Article
+    public function findBySlug(string $slug): ?Article
     {
-        return $this->model->with(['source', 'category', 'author'])->find($id);
+        return $this->model->with(['source', 'category', 'author','media'])->where('slug','=',$slug)->first();
     }
 
 }

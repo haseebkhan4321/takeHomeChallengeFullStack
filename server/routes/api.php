@@ -24,7 +24,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 
 Route::get('/articles', [ArticleController::class, 'index']);
-Route::get('/articles/{id}', [ArticleController::class, 'show']);
+Route::get('/articles/{slug}', [ArticleController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/sources', [SourceController::class, 'index']);
 Route::get('/authors', [AuthorController::class, 'index']);

@@ -9,6 +9,8 @@ interface ArticleRepositoryInterface
 {
     public function all($request): Collection;
 
-    public function find(int $id): ?Article;
+    public function findBySlug(string $slug): ?Article;
+
+
 
 }

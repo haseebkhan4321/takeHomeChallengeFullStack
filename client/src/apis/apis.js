@@ -7,6 +7,15 @@ export const fetchPosts = async (filters) => {
     console.error("Error fetching posts:", error);
   }
 };
+
+export const fetchPost = async (slug) => {
+  try {
+    return await Api.get(`/articles/${slug}`);
+  } catch (error) {
+    console.error("Error fetching post:", error);
+  }
+};
+
 export const fetchCategories = async () => {
   try {
     return await Api.get("/categories");
