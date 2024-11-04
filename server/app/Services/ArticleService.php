@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ArticleRepository;
+use GuzzleHttp\Client;
 use Illuminate\Http\UploadedFile;
 
 class ArticleService
@@ -25,4 +26,21 @@ class ArticleService
     }
 
 
+    public function fetchArticlesFromNewsApi()
+    {
+        $url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=' . config('thirdparty_credentials.news_api_key');
+
+        try {
+            $client = new Client();
+            $response = $client->get($url);
+            $articles = json_decode($response->getBody(), true)['articles'];
+            return $articles;
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function createArticle($data){
+        return $this->articleRepository->firstOrCreate($data);
+    }
 }

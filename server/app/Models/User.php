@@ -41,4 +41,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function prefrencedArticles()
+    {
+        return $this->morphedByMany(Article::class, 'preferable', 'preferences', 'user_id', 'preferable_id');
+    }
+
+    public function prefrencedCategory()
+    {
+        return $this->morphedByMany(Category::class, 'preferable', 'preferences', 'user_id', 'preferable_id');
+    }
+
+    public function prefrencedSource()
+    {
+        return $this->morphedByMany(Source::class, 'preferable', 'preferences', 'user_id', 'preferable_id');
+    }
+    public function prefrencedAuthor()
+    {
+        return $this->morphedByMany(Author::class, 'preferable', 'preferences', 'user_id', 'preferable_id');
+    }
 }

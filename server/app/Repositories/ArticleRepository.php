@@ -18,10 +18,10 @@ class ArticleRepository implements ArticleRepositoryInterface
     {
         return $this->model->with(['media','source','category','author'])
             ->when(request('category'), function ($query) {
-            $query->whereHas('category', function ($q) {
-                $q->where('slug', '=', request('category'));
-            });
-        })
+                $query->whereHas('category', function ($q) {
+                    $q->where('slug', '=', request('category'));
+                });
+            })
             ->when(request('author'), function ($query) {
                 $query->whereHas('author', function ($q) {
                     $q->where('slug', '=', request('author'));
@@ -38,12 +38,31 @@ class ArticleRepository implements ArticleRepositoryInterface
             ->when(request('limit'),function ($query) use ($request){
                 $query->limit($request->limit);
             })
+            ->when(auth()->check(),function ($query) use ($request){
+                $user = auth()->user();
+                $query->whereIn('id',$user->prefrencedArticles->pluck('id'));
+                $query->orWhereHas('category', function ($query) use ($user){
+                    $query->whereIn('id',$user->prefrencedCategory->pluck('id'));
+                });
+                $query->orWhereHas('author', function ($query) use ($user){
+                    $query->whereIn('id',$user->prefrencedAuthor->pluck('id'));
+                });
+                $query->orWhereHas('source', function ($query) use ($user){
+                    $query->whereIn('id',$user->prefrencedSource->pluck('id'));
+                });
+            })
+
 //            ->when(request('offset'),function ($query) use ($request){
 //                $query->offset($request->offset);
 //            })
             ->get();
     }
 
+    public function prefrenceArticles($request): Collection
+    {
+        $user =  auth()->user();
+        dd($user);
+    }
     public function findBySlug(string $slug): ?Article
     {
         return $this->model->with(['source', 'category', 'author','media'])->where('slug','=',$slug)->first();

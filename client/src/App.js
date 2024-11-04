@@ -6,6 +6,7 @@ import Signup from "./pages/signup";
 import Profile from "./pages/profile";
 import PageNotFound from "./pages/PageNotFound";
 import ArticlePage from "./pages/ArticlePage";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/*" element={<PageNotFound />}></Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

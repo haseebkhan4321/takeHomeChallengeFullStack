@@ -29,10 +29,12 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/sources', [SourceController::class, 'index']);
 Route::get('/authors', [AuthorController::class, 'index']);
 
-
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', function (Request $request) {
         return $request->user();
+    });
+    Route::group(['prefix' => '/preference'], function () {
+        Route::get('/articles', [ArticleController::class, 'index']);
     });
 });

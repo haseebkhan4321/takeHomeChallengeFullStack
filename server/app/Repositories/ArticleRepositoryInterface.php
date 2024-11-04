@@ -11,6 +11,5 @@ interface ArticleRepositoryInterface
 
     public function findBySlug(string $slug): ?Article;
 
-
-
+    public function firstOrCreate(array $attributes): Article;
 }

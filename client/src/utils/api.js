@@ -25,7 +25,6 @@ function getToken() {
 }
 
 function redirectToLogin() {
-  localStorage.removeItem("token");
   window.location.href = "/login";
 }
 

@@ -10,6 +10,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../store/features/auth/authSlice"; // Import logoutUser action
 import classNames from "../utils/classNames"; // Move classNames to a separate file if preferred
 
 const navigation = [
@@ -26,6 +27,11 @@ export default function Navbar() {
 
   const handleLoginClick = () => {
     navigate("/login"); // Redirect to login page
+  };
+
+  const handleLogoutClick = () => {
+    dispatch(logoutUser()); // Dispatch logoutUser action
+    navigate("/"); // Optionally redirect to home page after logout
   };
 
   return (
@@ -107,9 +113,11 @@ export default function Navbar() {
                     </a>
                   </MenuItem>
                   <MenuItem>
-                    <a href="/" className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
+                    <button
+                      onClick={handleLogoutClick} // Add click handler for logout
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100">
                       Sign out
-                    </a>
+                    </button>
                   </MenuItem>
                 </MenuItems>
               </Menu>

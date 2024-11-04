@@ -20,7 +20,6 @@ class ArticleController extends Controller
         return response()->json($articles);
     }
 
-
     public function show($slug)
     {
         $article = $this->articleService->getArticleBySlug($slug);
